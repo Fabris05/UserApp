@@ -1,16 +1,18 @@
 import { UserForm } from "./components/UserForm";
 import { UsersList } from "./components/UsersList";
+import { useUsers } from "./hooks/useUsers";
 
 export const UsersApp = () => {
 
-    const initialUsers = [
-        {
-            id: 1,
-            username: 'Pepe',
-            password: '12345',
-            email: 'pepe@gmail.com'
-        }
-    ];
+    const {
+        users,
+        userSelected,
+        initialUserForm,
+        
+        handlerAddUser,
+        handlerRemoveUser,
+        handlerUserSelectedForm
+    } = useUsers();
 
     return (
         <div className="container my-4">
@@ -19,11 +21,26 @@ export const UsersApp = () => {
             <div className="row">
 
                 <div className="col">
-                    <UserForm />
+                    <UserForm 
+                        handlerAddUser = { handlerAddUser }
+                        initialUserForm = {initialUserForm}
+                        userSelected = {userSelected} />
                 </div>
 
                 <div className="col">
-                    <UsersList users={initialUsers}/>
+                    {
+                        // validamos si es mayor que 0 con operador ternario
+                        users.length === 0 
+                        ? (<div 
+                            className="alert alert-warning">
+                            No hay usuarios en el sistema
+                            </div>) 
+                        : <UsersList 
+                            users = { users }
+                            handlerRemoveUser = { handlerRemoveUser }
+                            handlerUserSelectedForm = { handlerUserSelectedForm }
+                            />
+                    }
                 </div>
             </div>
         </div>

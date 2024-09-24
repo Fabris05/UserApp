@@ -1,10 +1,12 @@
 import { UserRow } from "./UserRow";
 
-export const UsersList = ({ users = [] }) => {    
+export const UsersList = ({ users = [], handlerRemoveUser, handlerUserSelectedForm }) => {    
     
+
+
     return (
         <>
-            <table className="table table-hover">
+            <table className="table table-hover text-center">
                 <thead className="table-light">
                     <tr>
                         <th>#</th>
@@ -19,10 +21,12 @@ export const UsersList = ({ users = [] }) => {
                     {
                         users.map(user => (
                             <UserRow 
-                                key={user.id} 
-                                id={user.id} 
-                                username={user.username}
-                                email={user.email}
+                                key = {user.id} 
+                                id = {user.id} 
+                                username = {user.username}
+                                email = {user.email}
+                                handlerRemoveUser = {handlerRemoveUser}
+                                handlerUserSelectedForm = { handlerUserSelectedForm }
                             />
                         ))
                     }
