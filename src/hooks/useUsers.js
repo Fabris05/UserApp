@@ -24,16 +24,11 @@ export const useUsers = () => {
 
     const [userSelected, setUserSelected] = useState(initialUserForm);
 
+    const [visibleForm, setVisibleForm] = useState(false);
+
     const handlerAddUser = (user) => {
-        // console.log(user);
 
-        let type;
-
-        if(user.id === 0){
-            type = 'addUser';
-        }else{
-            type = 'updateUser';
-        }
+        const type = (user.id === 0) ? 'addUser' : 'updateUser';
 
         dispatch({
             type, // type : type
@@ -49,6 +44,9 @@ export const useUsers = () => {
                 "El usuario ha sido actualizado con éxito!",
             icon: "success"
         });
+
+        //Utilizamos la funcion cerrar formulario
+        handlerCloseForm();
     }
 
     const handlerRemoveUser = (id) => {
@@ -79,19 +77,30 @@ export const useUsers = () => {
           });
     }
 
+    //Muestra los datos del usuario en el formulario
     const handlerUserSelectedForm = (user) => {
-        // console.log(user);
+        setVisibleForm(true); //Mostramos el formulario
         setUserSelected({...user}); // Pasamos un clon del arreglo usuario
     }
+
+    const handlerOpenForm = () => {
+        setVisibleForm(true);
+    }
     
+    const handlerCloseForm = () => {
+        setVisibleForm(false);
+        setUserSelected(initialUserForm); // Limpiamos el formulario con los datos por defecto
+    }
 
     return{
         users,
         userSelected,
         initialUserForm,
-
+        visibleForm,
         handlerAddUser,
         handlerRemoveUser,
-        handlerUserSelectedForm
+        handlerUserSelectedForm,
+        handlerOpenForm,
+        handlerCloseForm
     }
 }

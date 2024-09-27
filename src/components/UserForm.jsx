@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-export const UserForm = ({handlerAddUser, initialUserForm, userSelected}) => {
+export const UserForm = ({ initialUserForm, userSelected, handlerAddUser, handlerCloseForm}) => {
     
     const [userForm, setUserForm] = useState(initialUserForm);
 
@@ -35,10 +35,14 @@ export const UserForm = ({handlerAddUser, initialUserForm, userSelected}) => {
             return;
         }
         handlerAddUser(userForm);
-        //console.log(userForm);
 
         // Guardar el user form en el listado de usuarios
         setUserForm(initialUserForm);
+    }
+
+    const onCloseForm = () => {
+        handlerCloseForm();
+        setUserForm(initialUserForm); //Reseteamos el formulario
     }
 
     return (
@@ -80,6 +84,12 @@ export const UserForm = ({handlerAddUser, initialUserForm, userSelected}) => {
                     type="submit" 
                     className="btn btn-primary">
                         {id > 0 ? 'Editar' : 'Registrar'}
+                </button>
+
+                <button 
+                    className="btn btn-danger mx-2" 
+                    type="button"
+                    onClick={onCloseForm}>Cerrar
                 </button>
             </form>
         </>
