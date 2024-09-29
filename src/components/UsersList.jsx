@@ -7,7 +7,7 @@ export const UsersList = ({ users = [], handlerRemoveUser, handlerUserSelectedFo
     return (
         <>
             <table className="table table-hover text-center">
-                <thead className="table-light">
+                <thead className="table-dark">
                     <tr>
                         <th>#</th>
                         <th>Username</th>
