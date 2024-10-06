@@ -34,6 +34,16 @@ export const UserForm = ({ initialUserForm, userSelected, handlerAddUser, handle
             });
             return;
         }
+        
+        // Validacion de email
+        if(!email.includes('@')){
+            Swal.fire({
+                title: "Error en el email",
+                text: "El email debe ser válido, incluir un @",
+                icon: "info"
+            });
+            return;
+        }
         handlerAddUser(userForm);
 
         // Guardar el user form en el listado de usuarios
@@ -86,11 +96,16 @@ export const UserForm = ({ initialUserForm, userSelected, handlerAddUser, handle
                         {id > 0 ? 'Editar' : 'Registrar'}
                 </button>
 
-                <button 
-                    className="btn btn-danger mx-2" 
-                    type="button"
-                    onClick={onCloseForm}>Cerrar
-                </button>
+                {/* Validamos si la funcion handlerCloseForm existe para mostrar el botón cerrar */}
+
+                {
+                    !handlerCloseForm || 
+                    <button 
+                        className="btn btn-danger mx-2" 
+                        type="button"
+                        onClick={onCloseForm}>Cerrar
+                    </button>
+                }
             </form>
         </>
     );
