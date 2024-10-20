@@ -1,8 +1,10 @@
+import { useContext } from "react";
 import { UserRow } from "./UserRow";
+import { UserContext } from "../context/UserContext";
 
-export const UsersList = ({ users = [], handlerRemoveUser, handlerUserSelectedForm }) => {    
+export const UsersList = () => {    
     
-
+    const { users = [] } = useContext(UserContext);
 
     return (
         <>
@@ -26,8 +28,6 @@ export const UsersList = ({ users = [], handlerRemoveUser, handlerUserSelectedFo
                                 id = {user.id} 
                                 username = {user.username}
                                 email = {user.email}
-                                handlerRemoveUser = {handlerRemoveUser}
-                                handlerUserSelectedForm = { handlerUserSelectedForm }
                             />
                         ))
                     }
